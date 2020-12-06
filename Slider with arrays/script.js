@@ -1,7 +1,8 @@
 //Create a slider with functionality to add images and number of likes to arrays of images/likes.
-// Also create a delete function that removes slide data from corresponding arrays.
-// There should be a counter that updates automatically when a image is added/deleted.
-
+// Also create a delete function that removes slide data from corresponding arrays and a favorite button
+// that displays the image with the highest number of likes.
+// There should be a counter that updates automatically when an image is added/deleted.
+// Slider pauses on image hover
 //TODO - OOP refactor
 
 const slider = (function () {
@@ -26,6 +27,7 @@ const slider = (function () {
   let deleteBtn;
   let currentDes;
   let editedDes;
+  let inputs;
 
   function cacheDom() {
     imagePaths = ["1.jpg", "2.jpg", "3.jpg", "4.jpg"];
@@ -51,6 +53,7 @@ const slider = (function () {
     currentDes = document.querySelector(".edit__current-description");
     editedDes = document.querySelector(".edit__new-description");
     editBtn = document.querySelector(".edit__btn");
+    inputs = document.querySelectorAll("input");
   }
 
   function bindEvents() {
@@ -65,9 +68,9 @@ const slider = (function () {
     deleteBtn.addEventListener("click", deleteSlide);
     editBtn.addEventListener("click", editCaption);
     favBtn.addEventListener("click", getFavoriteImage);
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll("input").forEach((el) => (el.value = ""));
-    });
+    document.addEventListener("DOMContentLoaded", clearInputs);
+    imgContainer.addEventListener("mouseenter", pauseSlide);
+    imgContainer.addEventListener("mouseleave", continueSlide);
   }
 
   function changeImage(index) {
@@ -76,6 +79,7 @@ const slider = (function () {
     if (currentIndex > imagePaths.length - 1) {
       currentIndex = 0;
     }
+
     if (currentIndex < 0) {
       currentIndex = imagePaths.length - 1;
     }
@@ -85,6 +89,18 @@ const slider = (function () {
     updateCounters();
   }
 
+  function autoSlide() {
+    changeImage(1);
+  }
+
+  let interval = setInterval(autoSlide, 2000);
+
+  const pauseSlide = () => clearInterval(interval);
+
+  const continueSlide = () => (interval = setInterval(autoSlide, 2000));
+
+  const clearInputs = () => inputs.forEach((input) => (input.value = ""));
+
   function render() {
     if (img == null && des == null) {
       img = document.createElement("img");
@@ -93,9 +109,9 @@ const slider = (function () {
 
     img.src = "Images/" + imagePaths[currentIndex];
     img.alt = descriptionsList[currentIndex];
-    img.style.width = "40rem";
-    img.style.height = "30rem";
-    img.style.display = "block";
+    img.style.width = "100%";
+    img.style.height = "100%";
+    img.style.cursor = "pointer";
     des.innerHTML = descriptionsList[currentIndex];
 
     imgContainer.append(img);
@@ -106,10 +122,6 @@ const slider = (function () {
     counter.innerHTML = currentIndex + 1 + "/" + imagePaths.length;
     viewEl.innerHTML = numOfViews[currentIndex] + " views";
     likesEl.innerHTML = numOfLikes[currentIndex] + " likes";
-  }
-
-  function autoSlide() {
-    changeImage(1);
   }
 
   function likeImage() {
@@ -153,7 +165,6 @@ const slider = (function () {
     render();
   }
 
-  setInterval(autoSlide, 2000);
   cacheDom();
   bindEvents();
   render();
