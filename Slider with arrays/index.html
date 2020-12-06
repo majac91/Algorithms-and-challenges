@@ -4,34 +4,93 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Slider exercise</title>
+    <style>
+      .visually-hidden {
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+    </style>
   </head>
 
   <body>
-    <section id="images">
-      <img id="image" style="width: 40rem; height: 30rem" src="" alt="" />
-      <div id="images__description"></div>
-      <div id="images__counter" style="display: inline"></div>
-      <button type="button" id="prev-btn">Previous</button>
-      <button type="button" id="next-btn">Next</button>
+    <section class="images"></section>
+
+    <div class="slide-controlls">
+      <div class="slide-controlls__counter" style="display: inline"></div>
+      <button type="button" class="slide-controlls__prev-btn">Previous</button>
+      <button type="button" class="slide-controlls__next-btn">Next</button>
+    </div>
+
+    <section class="form">
+      <!--Likes and views -->
+      <div class="likes" style="padding-bottom: 1rem">
+        <div class="likes__views-num" style="display: inline"></div>
+        <div class="likes__likes-num" style="display: inline"></div>
+        <button class="likes__like-btn">Like</button>
+        <button class="likes__favorite-btn">Favorite image</button>
+      </div>
+
+      <!-- Add image -->
+      <div class="add">
+        <label for="new-image" class="add__label">Add image</label>
+        <input
+          type="text"
+          placeholder="file"
+          id="new-image"
+          class="add__new-image"
+        />
+        <label for="new-image-description" class="add__label visually-hidden"
+          >Caption</label
+        >
+        <input
+          type="text"
+          placeholder="image caption"
+          id="new-image-description"
+          class="add__new-description"
+        />
+        <button class="add__btn">Upload</button>
+      </div>
+
+      <!-- Delete image -->
+      <div class="delete">
+        <label for="delete-image-caption" class="delete__label"
+          >Delete image</label
+        >
+        <input
+          type="text"
+          placeholder="slide caption"
+          id="delete-image-caption"
+          class="delete__image"
+        />
+        <button class="delete__btn">Delete</button>
+      </div>
+
+      <!-- Edit caption -->
+      <div class="edit">
+        <label class="edit__label" for="edit-description">Edit caption</label>
+        <input
+          type="text"
+          placeholder="current"
+          id="edit-description"
+          class="edit__current-description"
+        />
+        <label for="edited-description" class="edit__label visually-hidden"
+          >New caption</label
+        >
+        <input
+          type="text"
+          placeholder="new"
+          id="edited-description"
+          class="edit__new-description"
+        />
+        <button class="edit__btn">Edit</button>
+      </div>
     </section>
-
-    <div id="likes" style="padding-bottom: 1rem">
-      <div id="like" style="display: inline"></div>
-      <button id="like-btn">Like</button>
-    </div>
-
-    <div id="add">
-      <label>Add animal</label>
-      <input type="text" placeholder="file" id="new-image" />
-      <input type="text" placeholder="slide caption" id="new-description" />
-      <button id="upload-btn">Upload</button>
-    </div>
-
-    <div id="delete">
-      <label>Delete animal</label>
-      <input type="text" placeholder="slide caption" id="delete-image" />
-      <button id="delete-btn">Delete</button>
-    </div>
 
     <script src="script.js"></script>
   </body>

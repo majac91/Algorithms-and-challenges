@@ -4,104 +4,158 @@
 
 //TODO - OOP refactor
 
-let imagePaths;
-let descriptionsList;
-let numOfLikes;
-let currentIndex;
-let img;
-let des;
-let counter;
-let prevBtn;
-let nextBtn;
-let likesEl;
-let likeBtn;
-let newImg;
-let newDes;
-let uploadBtn;
-let deleteEl;
-let deleteBtn;
+const slider = (function () {
+  let imagePaths;
+  let descriptionsList;
+  let numOfLikes;
+  let numOfViews;
+  let currentIndex;
+  let imgContainer;
+  let img;
+  let des;
+  let counter;
+  let prevBtn;
+  let nextBtn;
+  let likesEl;
+  let likeBtn;
+  let viewEl;
+  let newImg;
+  let newDes;
+  let uploadBtn;
+  let deleteEl;
+  let deleteBtn;
+  let currentDes;
+  let editedDes;
 
-function cacheDom() {
-  imagePaths = ["1.jpg", "2.jpg", "3.jpg", "4.jpg"];
-  descriptionsList = ["Elephant", "Lion", "Monkey", "Fox"];
-  currentIndex = 0;
-  numOfLikes = [0, 0, 0, 0];
-  img = document.getElementById("image");
-  des = document.getElementById("images__description");
-  counter = document.getElementById("images__counter");
-  likesEl = document.getElementById("like");
-  likeBtn = document.getElementById("like-btn");
-  newImg = document.getElementById("new-image");
-  newDes = document.getElementById("new-description");
-  uploadBtn = document.getElementById("upload-btn");
-  deleteEl = document.getElementById("delete-image");
-  deleteBtn = document.getElementById("delete-btn");
-  prevBtn = document.getElementById("prev-btn");
-  nextBtn = document.getElementById("next-btn");
-}
-
-function bindEvents() {
-  uploadBtn.addEventListener("click", addSlide);
-  prevBtn.addEventListener("click", () => {
-    changeImage(-1);
-  });
-  nextBtn.addEventListener("click", () => {
-    changeImage(1);
-  });
-  likeBtn.addEventListener("click", likeImage);
-  deleteBtn.addEventListener("click", deleteSlide);
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll("input").forEach((el) => (el.value = ""));
-  });
-}
-
-function changeImage(index) {
-  currentIndex += index;
-
-  if (currentIndex > imagePaths.length - 1) {
+  function cacheDom() {
+    imagePaths = ["1.jpg", "2.jpg", "3.jpg", "4.jpg"];
+    descriptionsList = ["Elephant", "Lion", "Monkey", "Fox"];
     currentIndex = 0;
+    numOfLikes = [0, 0, 0, 0];
+    numOfViews = [0, 0, 0, 0];
+    imgContainer = document.querySelector(".images");
+    img = null;
+    des = null;
+    counter = document.querySelector(".slide-controlls__counter");
+    prevBtn = document.querySelector(".slide-controlls__prev-btn");
+    nextBtn = document.querySelector(".slide-controlls__next-btn");
+    viewEl = document.querySelector(".likes__views-num");
+    likesEl = document.querySelector(".likes__likes-num");
+    likeBtn = document.querySelector(".likes__like-btn");
+    favBtn = document.querySelector(".likes__favorite-btn");
+    newImg = document.querySelector(".add__new-image");
+    newDes = document.querySelector(".add__new-description");
+    uploadBtn = document.querySelector(".add__btn");
+    deleteEl = document.querySelector(".delete__image");
+    deleteBtn = document.querySelector(".delete__btn");
+    currentDes = document.querySelector(".edit__current-description");
+    editedDes = document.querySelector(".edit__new-description");
+    editBtn = document.querySelector(".edit__btn");
   }
-  if (currentIndex < 0) {
-    currentIndex = imagePaths.length - 1;
+
+  function bindEvents() {
+    uploadBtn.addEventListener("click", addSlide);
+    prevBtn.addEventListener("click", () => {
+      changeImage(-1);
+    });
+    nextBtn.addEventListener("click", () => {
+      changeImage(1);
+    });
+    likeBtn.addEventListener("click", likeImage);
+    deleteBtn.addEventListener("click", deleteSlide);
+    editBtn.addEventListener("click", editCaption);
+    favBtn.addEventListener("click", getFavoriteImage);
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("input").forEach((el) => (el.value = ""));
+    });
   }
-  render();
-}
 
-function render() {
-  img.src = "Images/" + imagePaths[currentIndex];
-  des.innerHTML = descriptionsList[currentIndex];
-  counter.innerHTML = currentIndex + 1 + "/" + imagePaths.length;
-  likesEl.innerHTML = numOfLikes[currentIndex] + " likes";
-}
+  function changeImage(index) {
+    currentIndex = index == 1 || index == -1 ? currentIndex + index : index;
 
-function likeImage() {
-  numOfLikes[currentIndex] += 1;
-  likesEl.innerHTML = numOfLikes[currentIndex] + " likes";
-}
+    if (currentIndex > imagePaths.length - 1) {
+      currentIndex = 0;
+    }
+    if (currentIndex < 0) {
+      currentIndex = imagePaths.length - 1;
+    }
 
-function addSlide() {
-  imagePaths.push(newImg.value);
-  descriptionsList.push(newDes.value);
-  numOfLikes.push(0);
-  counter.innerHTML = currentIndex + 1 + "/" + imagePaths.length;
-}
+    numOfViews[currentIndex]++;
+    render();
+    updateCounters();
+  }
 
-function deleteSlide() {
-  let deleteElIndex = descriptionsList.indexOf(deleteEl.value);
-  imagePaths.splice(deleteElIndex, 1);
-  descriptionsList.splice(deleteElIndex, 1);
-  numOfLikes.splice(deleteElIndex, 1);
-  counter.innerHTML = currentIndex + 1 + "/" + imagePaths.length;
-}
+  function render() {
+    if (img == null && des == null) {
+      img = document.createElement("img");
+      des = document.createElement("div");
+    }
 
-function autoSlide() {
-  changeImage(1);
-}
+    img.src = "Images/" + imagePaths[currentIndex];
+    img.alt = descriptionsList[currentIndex];
+    img.style.width = "40rem";
+    img.style.height = "30rem";
+    img.style.display = "block";
+    des.innerHTML = descriptionsList[currentIndex];
 
-function init() {
+    imgContainer.append(img);
+    imgContainer.append(des);
+  }
+
+  function updateCounters() {
+    counter.innerHTML = currentIndex + 1 + "/" + imagePaths.length;
+    viewEl.innerHTML = numOfViews[currentIndex] + " views";
+    likesEl.innerHTML = numOfLikes[currentIndex] + " likes";
+  }
+
+  function autoSlide() {
+    changeImage(1);
+  }
+
+  function likeImage() {
+    numOfLikes[currentIndex] += 1;
+    likesEl.innerHTML = numOfLikes[currentIndex] + " likes";
+  }
+
+  function getFavoriteImage() {
+    let max = 0;
+    numOfLikes.forEach((el) => {
+      if (el > max) {
+        max = el;
+      }
+    });
+    let index = numOfLikes.indexOf(max);
+    changeImage(index);
+  }
+
+  function addSlide() {
+    imagePaths.push(newImg.value);
+    descriptionsList.push(newDes.value);
+    numOfLikes.push(0);
+    numOfViews.push(0);
+    render();
+    updateCounters();
+  }
+
+  function deleteSlide() {
+    let index = descriptionsList.indexOf(deleteEl.value);
+    imagePaths.splice(index, 1);
+    descriptionsList.splice(index, 1);
+    numOfLikes.splice(index, 1);
+    numOfViews.splice(index, 1);
+    render();
+    updateCounters();
+  }
+
+  function editCaption() {
+    let index = descriptionsList.indexOf(currentDes.value);
+    descriptionsList.splice(index, 1, editedDes.value);
+    render();
+  }
+
   setInterval(autoSlide, 2000);
   cacheDom();
-  render();
   bindEvents();
-}
-init();
+  render();
+  updateCounters();
+})();
