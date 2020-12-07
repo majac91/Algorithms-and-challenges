@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="shoplist">
+      <h1 class="shoplist__title">Spisak za kupovinu</h1>
+
+      <div class="shoplist__form form">
+        <label class="form__name-label" for="item-name">Namirnica</label>
+        <input class="form__item-name" id="item-name" type="text" />
+        <label class="form__price-label" for="item-price">Cena</label>
+        <input class="form__item-price" id="item-price" type="text" />
+        <label class="form__select-label" for="select-list"
+          >Dodaj na spisak:</label
+        >
+        <select class="form__select" name="list-options" id="select-list">
+          <option class="form__select-food" value="food">Namirnice</option>
+          <option class="form__select-other" value="other">Ostalo</option>
+        </select>
+
+        <div class="form__btns">
+          <button class="form__btns-add">Dodaj</button>
+          <button class="form__btns-food">Namirnice</button>
+          <button class="form__btns-other">Ostalo</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
