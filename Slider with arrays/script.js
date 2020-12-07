@@ -3,7 +3,14 @@
 // that displays the image with the highest number of likes.
 // There should be a counter that updates automatically when an image is added/deleted.
 // Slider pauses on image hover
+
 //TODO - OOP refactor
+
+//GOALS:
+// - DRY
+// - use BEM
+// - semantic HTML
+// - accesability
 
 const slider = (function () {
   let imagePaths;
