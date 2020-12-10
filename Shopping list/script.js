@@ -5,11 +5,11 @@ let selectList = document.querySelector(".form__select");
 let item;
 let foodArr = [];
 let otherArr = [];
+let currentList;
 let ul;
 let li;
 let foodListEls;
 let otherListEls;
-let currentList;
 let addBtn = document.querySelector(".form__btns-add");
 let foodBtn = document.querySelector(".form__btns-food");
 let otherBtn = document.querySelector(".form__btns-other");
@@ -32,7 +32,6 @@ function addItem() {
   if (selectList.value == "food") {
     foodArr.push(item);
     listClass = "food";
-    currentList = foodArr;
     showList(foodArr);
     render();
     return;
@@ -40,7 +39,6 @@ function addItem() {
 
   otherArr.push(item);
   listClass = "other";
-  currentList = otherArr;
   showList(otherArr);
   render();
 }
@@ -70,13 +68,18 @@ function render() {
   li.appendChild(moveBtn);
   listContainer.appendChild(ul);
 
-  moveBtn.addEventListener("click", moveItem);
   deleteBtn.addEventListener("click", (e) => {
     deleteItem(e.currentTarget);
+  });
+  moveBtn.addEventListener("click", (e) => {
+    moveItem(e.currentTarget);
   });
 }
 
 function showList(list) {
+  currentList = list;
+  console.log(currentList);
+
   foodListEls = document.querySelectorAll(".list__food-item");
   otherListEls = document.querySelectorAll(".list__other-item");
 
@@ -88,40 +91,39 @@ function showList(list) {
       el.style.display = "none";
     });
     return;
+  } else if (list == otherArr) {
+    foodListEls.forEach((el) => {
+      el.style.display = "none";
+    });
+    otherListEls.forEach((el) => {
+      el.style.display = "list-item";
+    });
   }
-
-  foodListEls.forEach((el) => {
-    el.style.display = "none";
-  });
-  otherListEls.forEach((el) => {
-    el.style.display = "list-item";
-  });
 }
 
 function deleteItem(currentItem) {
   currentEl = currentItem.parentElement.getAttribute("value");
-  console.log(currentEl);
   itemIndex = currentList.indexOf(currentEl);
   currentList.splice(itemIndex, 1);
-  console.log(currentList);
-  showList(currentList);
+  render();
 }
 
-function moveItem() {
-  itemIndex = currentList.indexOf(item);
+function moveItem(currentItem) {
+  currentEl = currentItem.parentElement.getAttribute("value");
+  itemIndex = currentList.indexOf(currentItem);
+  console.log(currentList);
 
-  if (currentList == foodArr) {
+  if (foodArr.includes(currentEl)) {
     foodArr.splice(itemIndex, 1);
     otherArr.push(item);
+    showList(otherArr);
     return;
   }
   otherArr.splice(itemIndex, 1);
   foodArr.push(item);
-  console.log(foodArr);
 }
 
 function addItemOnEnter(event) {
-  console.log(event.key);
   if (event.key == "Enter") {
     addItem();
   }

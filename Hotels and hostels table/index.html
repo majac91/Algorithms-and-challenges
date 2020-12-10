@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section class="form">
+      <div>
+        <label class="form__name-label" for="object-name"
+          >Accomodation name</label
+        >
+        <input class="form__name-input" id="object-name" type="text" />
+      </div>
+
+      <div>
+        <label class="form__room-label" for="room-number"
+          >Number of rooms</label
+        >
+        <input class="form__room-input" id="room-number" type="text" />
+      </div>
+
+      <div>
+        <label class="form__select-label" for="select-list">Add to list:</label>
+        <select class="form__select" name="list-options" id="select-list">
+          <option class="form__select-hotel" value="Hotel">Hotel</option>
+          <option class="form__select-hospital" value="Hostel">Hostel</option>
+        </select>
+      </div>
+
+      <button type="button" class="form__submit-btn">Add</button>
+      <button type="button" class="form__mark-btn">Mark</button>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
