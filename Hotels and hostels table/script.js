@@ -62,12 +62,12 @@ const createTable = () => {
 
   if (!table) {
     table = document.createElement("table");
-    tr = createTr();
-    th1 = createTh();
+    tr = document.createElement("tr");
+    th1 = document.createElement("th");
     th1.innerHTML = "Name";
-    th2 = createTh();
+    th2 = document.createElement("th");
     th2.innerHTML = "Type of accomodation";
-    th3 = createTh();
+    th3 = document.createElement("th");
     th3.innerHTML = "Number of rooms";
 
     formContainer.appendChild(table);
@@ -91,27 +91,15 @@ const validateInputs = (roomsNum, name) => {
   }
 };
 
-const createTh = () => {
-  return document.createElement("th");
-};
-
-const createTr = () => {
-  return document.createElement("tr");
-};
-
-const createTd = () => {
-  return document.createElement("td");
-};
-
 const addRow = (name, type, roomsNum) => {
-  tr = createTr();
-  td1 = createTd();
+  tr = document.createElement("tr");
+  td1 = document.createElement("td");
   td1.innerHTML = name;
 
-  td2 = createTd();
+  td2 = document.createElement("td");
   td2.innerHTML = type;
 
-  td3 = createTd();
+  td3 = document.createElement("td");
   td3.innerHTML = roomsNum;
   td3.classList.add("num-of-rooms");
 
