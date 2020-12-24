@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Student list</h1>
+    <div class="student container">
+      <div>
+        <label for="first-name">Name</label>
+        <input class="student__f-name" id="first-name" type="text" />
+      </div>
+      <div>
+        <label for="last-name">Last name</label>
+        <input class="student__l-name" id="last-name" type="text" />
+      </div>
+      <div>
+        <label for="index">Student number</label>
+        <input class="student__index" id="index" type="text" />
+      </div>
+      <div>
+        <label for="score">Average score (%)</label>
+        <input class="student__score" id="score" type="text" />
+      </div>
+
+      <button id="add-btn" type="button">Add</button>
+      <button id="calc-btn" type="button">Average score</button>
+      <button id="top-graded-btn" type="button">Highest scoring</button>
+
+      <div class="tables"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
