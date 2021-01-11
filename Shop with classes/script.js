@@ -47,6 +47,7 @@ function createHeader(table, tr) {
     th.innerHTML = `${i[0].toUpperCase() + i.slice(1)}`;
     tr.appendChild(th);
 
+    //append an operator td as the last td of the row
     if (Object.keys(item).indexOf(i) + 1 == Object.keys(item).length) {
       th = document.createElement("th");
       th.innerHTML = "+/-";
@@ -68,8 +69,8 @@ function createRows(table) {
 
     const headers = [...Object.values(listItem), "changeAmount"];
     headers.forEach((i) => {
+      //skip adding a btn to dable cells that are not 'changeAmount'
       if (i !== "changeAmount") {
-        //preskoci kreiranje dugmeta za sva polja koja nisu 'changeAmount'
         td = document.createElement("td");
         td.innerHTML = i;
         tr.appendChild(td);
@@ -93,16 +94,11 @@ function createRows(table) {
 
 function changeAmount(e, op) {
   let ref = e.target.parentElement.children[0].innerHTML;
-  let amountTd = e.target.parentElement.children[3].innerHTML;
-
-  console.log(e.target.parentElement.children[3].innerHTML); // Pitanje
-  console.log(amountTd);
 
   store.itemsList.filter((item) => {
     if (item.ref == ref) {
       item.amount += op == "+" ? 1 : -1;
-      //   amountTd = item.amount; //ne renderuje novu vrednosti
-      e.target.parentElement.children[3].innerHTML = item.amount; //ovo radi
+      e.target.parentElement.children[3].innerHTML = item.amount;
     }
   });
 }
