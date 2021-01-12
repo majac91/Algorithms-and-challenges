@@ -14,10 +14,9 @@ class Championship {
   }
 
   calcHighestScoring() {
-    let highScore = this.competitorList[0].finalScore;
     let highestScoring = this.competitorList[0];
     for (let i = 0; i < this.competitorList.length; i++) {
-      if (this.competitorList[i].finalScore > highScore) {
+      if (this.competitorList[i].finalScore > highestScoring.finalScore) {
         highestScoring = this.competitorList[i];
       }
     }
@@ -25,10 +24,7 @@ class Championship {
   }
 
   filterCountry(country) {
-    let competitorsFromCountry = [];
-    return (competitorsFromCountry = this.competitorList.filter(
-      (c) => c.country === country
-    ));
+    return this.competitorList.filter((c) => c.country === country);
   }
 }
 
@@ -54,11 +50,10 @@ function getId() {
 }
 
 //tests
-const competitor1 = new Competitor("Maja", "Cvetkovic", "Serbia", 8, 6);
+const competitor1 = new Competitor("Maja", "Cvetkovic", "Serbia", 5, 6);
 const competitor2 = new Competitor("Nikola", "Jovanovic", "Austria", 9, 4);
-const competitor3 = new Competitor("Sanja", "Cvetkovic", "Canada", 10, 2);
-const competitor4 = new Competitor("Jovana", "Veljkovic", "Austria", 7, 3);
-
+const competitor3 = new Competitor("Sanja", "Cvetkovic", "Canada", 14, 2);
+const competitor4 = new Competitor("Jovana", "Veljkovic", "Austria", 3, 3);
 const championship = new Championship();
 championship.addCompetitor(competitor1);
 championship.addCompetitor(competitor2);
@@ -69,3 +64,4 @@ championship.removeCompetitor(competitor1);
 console.log(championship.competitorList);
 console.log(championship.calcHighestScoring());
 console.log(championship.filterCountry("Austria"));
+console.log(championship.competitorList);
