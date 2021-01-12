@@ -71,6 +71,7 @@ function createRows(table) {
     headers.forEach((i) => {
       //skip adding a btn to dable cells that are not 'changeAmount'
       if (i !== "changeAmount") {
+        console.log(i);
         td = document.createElement("td");
         td.innerHTML = i;
         tr.appendChild(td);
@@ -99,6 +100,9 @@ function changeAmount(e, op) {
     if (item.ref == ref) {
       item.amount += op == "+" ? 1 : -1;
       e.target.parentElement.children[3].innerHTML = item.amount;
+      e.target.parentElement.children[4].innerHTML = `$${
+        Number(item.total.slice(1)) * item.amount
+      }`;
     }
   });
 }
