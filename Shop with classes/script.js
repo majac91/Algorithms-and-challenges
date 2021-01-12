@@ -100,6 +100,7 @@ function changeAmount(e, op) {
     if (item.ref == ref) {
       item.amount += op == "+" ? 1 : -1;
       e.target.parentElement.children[3].innerHTML = item.amount;
+      //update and format the total price
       e.target.parentElement.children[4].innerHTML = `$${
         Number(item.total.slice(1)) * item.amount
       }`;
