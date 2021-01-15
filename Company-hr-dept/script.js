@@ -7,12 +7,11 @@ class Company {
 
   addEmployee(employee) {
     this.employees.push(employee);
+    this.bonus = this.employees[0].calcBonus(this.employees[0].position);
   }
 
   getEmployeesInfo() {
     this.employees.forEach((employee) => {
-      this.bonus = employee.calcBonus(employee.position);
-
       console.log({
         ...employee,
         totalSalary: employee.salary + this.bonus,
@@ -26,7 +25,7 @@ class Company {
     this.employees.forEach((employee) => {
       this.bonus = employee.calcBonus(employee.position);
       totalSalary = employee.salary + this.bonus;
-      console.log(totalSalary);
+      //   console.log(totalSalary);
     });
   }
 }
@@ -114,7 +113,6 @@ class QA extends Employee {
 
   calcBonus(position) {
     let bonus = super.calcBonus(position);
-    console.log(bonus);
     return super.calcBonus(position);
   }
 
