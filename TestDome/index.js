@@ -1,5 +1,5 @@
+//IMAGE GALLERY
 // https://www.testdome.com/questions/javascript/image-gallery/9773
-
 function registerClickHandler() {
   const removeBtns = document.querySelectorAll(".remove");
   removeBtns.forEach((btn) => {
@@ -9,6 +9,7 @@ function registerClickHandler() {
   });
 }
 
+//ENSURE
 // https://www.testdome.com/questions/javascript/ensure/21948
 function ensure(value) {
   if (!value || value === "undefined") {
@@ -24,6 +25,7 @@ try {
   console.log(err);
 }
 
+//FORMAT DATE
 // https://www.testdome.com/questions/javascript/date/8521
 function formatDate(userDate) {
   // format from M/D/YYYY to YYYYMMDD
@@ -103,7 +105,6 @@ const indices = findTwoSum([1, 7, 5, 2, 5, 9, 3], 10);
 console.log(indices);
 
 //TOPIC COLORING
-
 function newMessage(topicName) {
   let topics = document.querySelectorAll(`[data-topic-name='${topicName}']`);
   topics.forEach((topic) => (topic.style.backgroundColor = "red"));
