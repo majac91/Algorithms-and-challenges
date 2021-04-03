@@ -5,3 +5,5 @@
 🥋 - CodeWars kata
 
 🚀 - React practice
+
+🧩 - Other
