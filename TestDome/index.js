@@ -111,3 +111,21 @@ function newMessage(topicName) {
 }
 
 newMessage("animals");
+
+//REMOVE PROPERTY
+// https://www.testdome.com/questions/javascript/remove-property/11883
+
+//  operator IN returns true when property exists in an object:
+//  if(prop in obj)
+
+//  obj.hasOwnProperty(prop) does the same thing
+function removeProperty(obj, prop) {
+  if (obj.hasOwnProperty(prop)) {
+    delete obj[prop];
+    return true;
+  } else {
+    return false;
+  }
+}
+
+removeProperty({ one: "apple", two: "orange", three: "pear" }, "three");
