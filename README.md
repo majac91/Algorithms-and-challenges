@@ -6,4 +6,4 @@
 
 🚀 - React practice
 
-🧩 - Other
+🧩 - Algorithms
