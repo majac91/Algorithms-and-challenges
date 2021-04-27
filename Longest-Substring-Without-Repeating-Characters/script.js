@@ -1,11 +1,10 @@
+//using current position
 var lengthOfLongestSubstring = function (s) {
   let currentString = [];
   let longestStringLength = 0;
   let currentCharPos = 0;
 
   for (let i = 0; i < s.length; i++) {
-    console.log(currentString);
-
     //does the character exist in the current string?
     currentCharPos = currentString.indexOf(s[i]);
 
@@ -24,3 +23,24 @@ var lengthOfLongestSubstring = function (s) {
   return longestStringLength;
 };
 console.log(lengthOfLongestSubstring("pwwkew"));
+
+//using Set
+var getLongestSubstring = function (s) {
+  let longestSubstLenght = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    let currentString = new Set();
+    for (let j = i; j < s.length; j++) {
+      if (currentString.has(s[j])) {
+        break;
+      } else {
+        currentString.add(s[j]);
+      }
+    }
+
+    longestSubstLenght = Math.max(longestSubstLenght, currentString.size);
+  }
+  return longestSubstLenght;
+};
+
+console.log(getLongestSubstring("pwwkew"));
