@@ -1,8 +1,3 @@
-//frequency counter approach:
-//useful when needing to compare two pieces of data, especially if they're made of same parts that appear in same frequency
-//use an object to break down the contents of a string/array and than use that breakdown to compare with the second string
-//use multiple loops instead of a nested loop to make the notation O(n) instead of O(n2)
-
 console.log("SAME");
 function same1(arr1, arr2) {
   if (arr1.length !== arr2.length) {
