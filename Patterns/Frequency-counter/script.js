@@ -1,8 +1,9 @@
 //frequency counter approach:
-//use an object to break down the contents of a string/array and than use that
-//breakdown to compare with the second string
-//use two loops instead of a nested loop to make the notation O(n) instead of O(n2)
+//useful when needing to compare two pieces of data, especially if they're made of same parts that appear in same frequency
+//use an object to break down the contents of a string/array and than use that breakdown to compare with the second string
+//use multiple loops instead of a nested loop to make the notation O(n) instead of O(n2)
 
+console.log("SAME");
 function same1(arr1, arr2) {
   if (arr1.length !== arr2.length) {
     return false;
@@ -90,3 +91,34 @@ console.log("approach3");
 console.log(same3([1, 2, 3], [4, 1, 9]));
 console.log(same3([1, 2, 3], [4, 1]));
 console.log(same3([1, 2, 1], [4, 1, 4]));
+
+console.log("ANAGRAMS");
+
+function validAngram(str1, str2) {
+  if (str1.length !== str2.length) {
+    return false;
+  }
+  let str1CharCount = {};
+  let str2CharCount = {};
+
+  for (let char of str1) {
+    str1CharCount[char] = ++str1CharCount[char] || 1;
+  }
+
+  for (let char of str2) {
+    str2CharCount[char] = ++str2CharCount[char] || 1;
+  }
+
+  Object.keys(str1CharCount).map((key) => {
+    if (!(key in str2CharCount)) return false;
+  });
+
+  for (let key in str1CharCount) {
+    if (!(key in str2CharCount)) return false;
+    if (str1CharCount[key] !== str2CharCount[key]) return false;
+  }
+
+  return true;
+}
+console.log(validAngram("car", "rat"));
+console.log(validAngram("rat", "tar"));
